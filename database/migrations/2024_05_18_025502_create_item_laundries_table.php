@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             //item price, int, default 0
             $table->integer('price')->default(0);
+            //barcode
+            $table->string('barcode')->nullable();
             //item description, nullable
             $table->text('description')->nullable();
             $table->timestamps();

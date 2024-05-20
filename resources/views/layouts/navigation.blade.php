@@ -21,6 +21,11 @@
                         {{ __('Item Laundry') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('input_laundry_kiloan.index')" :active="request()->routeIs('input_laundry_kiloan.index')">
+                        {{ __('Input Laundry Kiloan') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

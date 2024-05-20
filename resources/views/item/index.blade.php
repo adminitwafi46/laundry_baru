@@ -44,6 +44,9 @@
                     Harga
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Barcode
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Edit
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -61,6 +64,9 @@
                 </td>
                 <td class="px-6 py-4">
                     @{{item.price}}
+                </td>
+                <td>
+                    @{{item.barcode}}
                 </td>
                 <td class="px-6 py-4">
                     <a @click="show(index)" data-modal-target="static-modal2" data-modal-toggle="static-modal2" class='mr-1'>
@@ -114,6 +120,11 @@
                     <div class="mb-6">
                         <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
                         <input type="number" v-model='harga' id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barcode</label>
+                        <input type="text" v-model='barcode' id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
                     </div>
                 </p>
 
@@ -177,6 +188,12 @@
                         <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
                         <input type="number" v-model='selected_item.price' id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
+                    <div class="mb-6">
+
+
+                        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barcode</label>
+                        <input type="text" v-model='selected_item.barcode' id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
                 </p>
 
             </div>
@@ -206,6 +223,7 @@ const app = Vue.createApp({
                     data: @json($items),
                     nama : "",
                     harga : 0,
+                    barcode: "",
                     alert_success: false,
                     selected_item: {}
                 }
@@ -215,7 +233,9 @@ const app = Vue.createApp({
                     console.log(this.nama, this.harga);
                     const response = await axios.post('/item', {
                         name: this.nama,
-                        price: this.harga
+                        price: this.harga,
+                        barcode: this.barcode
+
                     });
 
                 //if success
@@ -229,6 +249,7 @@ const app = Vue.createApp({
                     document.querySelector('[data-modal-hide="static-modal"]').click();
                     this.nama = "";
                     this.harga = 0;
+                    this.barcode = "";
                 }
 
                 },
@@ -243,7 +264,8 @@ const app = Vue.createApp({
                     console.log(this.selected_item);
                     const response = await axios.put('/item/' + this.selected_item.id, {
                         name: this.selected_item.name,
-                        price: this.selected_item.price
+                        price: this.selected_item.price,
+                        barcode: this.selected_item.barcode
                     });
 
                     //if success

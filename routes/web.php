@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\inputLaundryKiloanController;
 use App\Http\Controllers\itemController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,16 @@ Route::prefix('item')->middleware('auth')->group(function () {
     Route::patch('/{item}', [itemController::class, 'update'])->name('item.update');
     //item destroy
     Route::delete('/{item}', [itemController::class, 'destroy'])->name('item.destroy');
+});
+
+//prefix input_laundry_kiloan, middleware auth
+Route::prefix('input_laundry_kiloan')->middleware('auth')->group(function () {
+    //input_laundry_kiloan index
+    Route::get('/', [inputLaundryKiloanController::class, 'index'])->name('input_laundry_kiloan.index');
+    //cari item berdasarkan nama
+    Route::get('/search_name/{nama}', [inputLaundryKiloanController::class, 'search_name'])->name('input_laundry_kiloan.search');
+    //carikan item berdasarkan barcode
+    Route::get('/search_barcode/{barcode}', [inputLaundryKiloanController::class, 'search_barcode'])->name('input_laundry_kiloan.searchbarcode');
 });
 
 require __DIR__.'/auth.php';
